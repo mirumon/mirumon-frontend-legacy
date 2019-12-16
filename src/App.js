@@ -1,10 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { useDispatch } from 'react-redux'
 
 function App() {
+  const dispatch = useDispatch()
   return (
-    <div className="App">
+    <div className="App" onClick={() => dispatch({ type: 'test', payload: ['dasd'] })}>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
