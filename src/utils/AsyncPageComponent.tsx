@@ -1,5 +1,5 @@
 import React from 'react';
-import { Component, ReactNode } from "react";
+import { Component } from "react";
 
 type AsyncPageComponentProps = {
     page: string
@@ -20,7 +20,6 @@ export class AsyncPageComponent extends Component<AsyncPageComponentProps, Async
     componentDidMount() {
         const that:AsyncPageComponent = this
         import(`pages/${this.props.page}`).then(page => {
-            console.log(page)
             that.setState({
                 component: page.default
             })

@@ -10,7 +10,6 @@ export default function configureStore(preloadedState) {
   Object.keys(routes).forEach(pageName => {
     routesMap[pageName] = routes[pageName].path
   })
-  console.log(routesMap)
 
   const { reducer, middleware, enhancer } = connectRoutes(routesMap)
 
