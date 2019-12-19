@@ -27,7 +27,8 @@ export class AsyncPageComponent extends Component<AsyncPageComponentProps, Async
     }
 
     render() {
+        const { page, ...other} = this.props
         const Page: React.ComponentClass | null = this.state.component
-        return Page ? <Page /> : null
+        return Page ? <Page {...other}/> : null
     }
 }
