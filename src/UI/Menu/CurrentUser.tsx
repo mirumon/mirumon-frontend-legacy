@@ -26,8 +26,7 @@ export default withStyles(({ palette }: Theme) => ({
     root: {
         width: '100%',
         boxSizing: 'border-box',
-        border: '1px solid',
-        borderColor: palette.secondary.dark,
+        border: `1px solid ${palette.primary.dark}`,
         borderRadius: '5px',
         textAlign: 'left',
         display: 'flex',
@@ -36,7 +35,7 @@ export default withStyles(({ palette }: Theme) => ({
         padding: '3px 10px'
     },
     logOut: {
-        color: palette.secondary.dark,
+        color: palette.primary.dark,
         padding: 0,
     }
 }))(CurrentUser)

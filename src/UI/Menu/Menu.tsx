@@ -54,7 +54,8 @@ export default withStyles(({ palette }: Theme) => ({
         background: palette.secondary.main,
         padding: '30px 10px',
         textAlign: 'center',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        borderRight: `1px solid ${palette.primary.dark}`
     },
     avatarAndCurrentUser: {
         marginBottom: 10
