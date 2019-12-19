@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Menu from 'UI/Menu/Menu'
 import { withStyles, Theme, Box } from '@material-ui/core'
+import PageContent from 'UI/PageContent'
 
 type HomePageProps = {
     classes: any
@@ -11,7 +12,10 @@ class HomePage extends Component<HomePageProps> {
         return (
             <Box className={this.props.classes.root}>
                 <Menu username="haspen"/>
-                <Box className={this.props.classes.tabContent}>Users</Box>
+                <PageContent>
+                    Users
+                </PageContent>
+                <Box className={this.props.classes.tabContent}></Box>
             </Box>
         )
     }
@@ -22,9 +26,5 @@ export default withStyles(({ palette }: Theme) => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'left'
-    },
-    tabContent: {
-        overflowY: 'auto',
-        maxHeight: '100vh'
     }
 }))(HomePage)
