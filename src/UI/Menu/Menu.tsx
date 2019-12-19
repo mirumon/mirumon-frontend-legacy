@@ -70,6 +70,6 @@ export default withStyles(({ palette }: Theme) => ({
         color: palette.text.secondary
     },
     icon: {
-        marginRight: 10,
+        marginRight: 10
     }
 }))(Menu)

@@ -36,7 +36,7 @@ export default withStyles(({ palette }: Theme) => ({
         padding: '3px 10px'
     },
     logOut: {
-        color: palette.text.primary,
+        color: palette.secondary.dark,
         padding: 0,
     }
 }))(CurrentUser)
