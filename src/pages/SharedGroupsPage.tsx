@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Menu from 'UI/Menu/Menu'
 import { withStyles, Theme, Box, Typography, IconButton } from '@material-ui/core'
 import PageContent from 'UI/PageContent'
+import PageWithMenu from 'UI/PageWithMenu'
 
 type SharedGroupsPageProps = {
     classes: any
@@ -10,12 +11,11 @@ type SharedGroupsPageProps = {
 class SharedGroupsPage extends Component<SharedGroupsPageProps> {
     render() {
         return (
-            <Box>
-                <Menu username="haspen" selectedTab="SharedGroupsPage"/>
+            <PageWithMenu>
                 <PageContent>
                     Shared Groups
                 </PageContent>
-            </Box>
+            </PageWithMenu>
         )
     }
 }
