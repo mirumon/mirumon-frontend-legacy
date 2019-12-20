@@ -3,16 +3,16 @@ import { withStyles, Theme, Box, Typography, IconButton } from '@material-ui/cor
 import PageContent from 'UI/PageContent'
 import PageWithMenu from 'UI/PageWithMenu'
 
-type SharedGroupsPageProps = {
+type DevicesPageProps = {
     classes: any
 }
 
-class SharedGroupsPage extends Component<SharedGroupsPageProps> {
+class DevicesPage extends Component<DevicesPageProps> {
     render() {
         return (
             <PageWithMenu>
                 <PageContent>
-                    Shared groups – Coming soon...
+                    Devices – Coming soon...
                 </PageContent>
             </PageWithMenu>
         )
@@ -20,4 +20,4 @@ class SharedGroupsPage extends Component<SharedGroupsPageProps> {
 }
 
 export default withStyles(({ palette }: Theme) => ({
-}))(SharedGroupsPage)
+}))(DevicesPage)

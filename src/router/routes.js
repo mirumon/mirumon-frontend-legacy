@@ -1,10 +1,16 @@
 
 const routes = {
+    HomePage: {
+        path: '/'
+    },
     SharedGroupsPage: {
         path: '/shared-groups'
     },
-    HomePage: {
-        path: '/'
+    DevicesPage: {
+        path: '/devices'
+    },
+    ServerPage: {
+        path: '/server'
     },
 }
 
