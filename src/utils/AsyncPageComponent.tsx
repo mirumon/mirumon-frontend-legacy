@@ -17,13 +17,21 @@ export class AsyncPageComponent extends Component<AsyncPageComponentProps, Async
         }
     }
 
-    componentDidMount() {
+    private importPage() {
         const that:AsyncPageComponent = this
         import(`pages/${this.props.page}`).then(page => {
             that.setState({
                 component: page.default
             })
         })
+    }
+
+    componentDidMount() {
+        this.importPage()
+    }
+
+    componentDidUpdate(prevProps: AsyncPageComponentProps) {
+        if(prevProps.page !== this.props.page) this.importPage()
     }
 
     render() {

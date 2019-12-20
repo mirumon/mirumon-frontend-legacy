@@ -13,7 +13,7 @@ export default function configureStore(preloadedState) {
 
   const { reducer, middleware, enhancer } = connectRoutes(routesMap)
 
-  const rootReducer = combineReducers({ page: (state = 'HomePage') => state, location: reducer, app: appReducer })
+  const rootReducer = combineReducers({ page: (state = 'HomePage', action = {}) => action.type, location: reducer, app: appReducer })
   const middlewares = applyMiddleware(middleware)
   const enhancers = compose(
     enhancer,

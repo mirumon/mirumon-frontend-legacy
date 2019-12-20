@@ -5,17 +5,20 @@ import PageContent from 'UI/PageContent'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import SearchInput from 'UI/SearchInput'
+import { connect } from 'react-redux'
 
 type HomePageProps = {
+    page: any,
+    onTabChange?(selected: string): void,
     classes: any
 }
 
 class HomePage extends Component<HomePageProps> {
     render() {
-        const { classes } = this.props
+        const { onTabChange, classes, page } = this.props
         return (
             <Box className={classes.root}>
-                <Menu username="haspen"/>
+                <Menu username="haspen" selectedTab={page} onTabChange={onTabChange}/>
                 <PageContent>
                     <Box className={classes.title}>
                         <Box>
@@ -36,6 +39,10 @@ class HomePage extends Component<HomePageProps> {
         )
     }
 }
+
+const mapStateToProps = ({ page }: any) => ({ page })
+const mapDispatchToProps = (dispatch: any) => ({ onTabChange: (selected: string) => dispatch({ type: selected }) })
+const HomePageWithState = connect(mapStateToProps, mapDispatchToProps)(HomePage)
 
 export default withStyles(({ palette }: Theme) => ({
     root: {
@@ -60,4 +67,4 @@ export default withStyles(({ palette }: Theme) => ({
         width: '30vw',
         minWidth: '200px',
     }
-}))(HomePage)
+}))(HomePageWithState)

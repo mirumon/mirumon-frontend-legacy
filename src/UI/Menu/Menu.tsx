@@ -9,6 +9,7 @@ import CurrentUser from './CurrentUser'
 
 type MenuProps = {
     username: string,
+    selectedTab: string,
     onLogOut?(): void,
     onTabChange?(selected: string): void,
     classes: any
@@ -16,7 +17,7 @@ type MenuProps = {
 
 class Menu extends Component<MenuProps> {
     render() {
-        const { username, onLogOut, classes } = this.props
+        const { selectedTab, username, onLogOut, onTabChange, classes } = this.props
         return <Box className={classes.root}>
             <Box className={classes.avatarAndCurrentUser}>
                 <Avatar
@@ -27,22 +28,35 @@ class Menu extends Component<MenuProps> {
                 <CurrentUser username={username} onLogOut={onLogOut} />
             </Box>
             <MenuList className={classes.list}>
-                <MenuItem className={classes.icon}>
-                    <SupervisedUserCircleIcon className={classes.icon}/>
-                    <Typography>users</Typography>
-                </MenuItem>
-                <MenuItem className={classes.icon}>
-                    <FolderSharedIcon className={classes.icon}/>
-                    <Typography>shared groups</Typography>
-                </MenuItem>
-                <MenuItem className={classes.icon}>
-                    <DevicesIcon className={classes.icon}/>
-                    <Typography>devices</Typography>
-                </MenuItem>
-                <MenuItem className={classes.icon}>
-                    <LinkIcon className={classes.icon}/>
-                    <Typography>server</Typography>
-                </MenuItem>
+                {[
+                    {
+                        type: 'HomePage',
+                        icon: <SupervisedUserCircleIcon className={classes.icon}/>,
+                        value: 'users'
+                    },
+                    {
+                        type: 'SharedGroupsPage',
+                        icon: <FolderSharedIcon className={classes.icon}/>,
+                        value: 'shared groups'
+                    },
+                    {
+                        type: 'DevicesPage',
+                        icon: <DevicesIcon className={classes.icon}/>,
+                        value: 'devices'
+                    },
+                    {
+                        type: 'ServerPage',
+                        icon: <LinkIcon className={classes.icon}/>,
+                        value: 'server'
+                    }
+                ].map(({ type, icon, value }) => (
+                    <MenuItem key={`Menu:${type}:${value}`} style={{opacity: selectedTab === type ? 1 : .7}} onClick={() => onTabChange && onTabChange(type)}>
+                        <>{[
+                            icon,
+                            <Typography style={{fontWeight: selectedTab === type ? 'bold' : 'normal'}}>{value}</Typography>
+                        ]}</>
+                    </MenuItem>
+                ))}
             </MenuList>
         </Box>
     }
@@ -68,7 +82,8 @@ export default withStyles(({ palette }: Theme) => ({
         marginBottom: 20
     },
     list: {
-        color: palette.text.secondary
+        color: palette.text.secondary,
+        
     },
     icon: {
         marginRight: 10
