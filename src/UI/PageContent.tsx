@@ -20,6 +20,7 @@ export default withStyles(({ palette }: Theme) => ({
         boxSizing: 'border-box',
         padding: '0 2.5vw',
         overflowY: 'auto',
-        maxHeight: '100vh'
+        maxHeight: '100vh',
+        width: '100%'
     }
 }))(PageContent)
