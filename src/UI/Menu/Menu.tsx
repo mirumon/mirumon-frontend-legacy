@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Box, MenuList, MenuItem, Typography, IconButton, Avatar, withStyles, Theme } from '@material-ui/core'
+import { Box, MenuList, MenuItem, Typography, Avatar, withStyles, Theme } from '@material-ui/core'
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle'
 import FolderSharedIcon from '@material-ui/icons/FolderShared'
 import DevicesIcon from '@material-ui/icons/Devices'

@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { AsyncPageComponent } from 'utils/AsyncPageComponent'
 import { withStyles, Theme, Box } from '@material-ui/core'
-import { Styles } from '@material-ui/core/styles/withStyles'
 
 type AppProps = {
   page: string,

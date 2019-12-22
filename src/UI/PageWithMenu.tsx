@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Menu from 'UI/Menu/Menu'
-import { withStyles, Theme, Box, Typography, IconButton } from '@material-ui/core'
+import { withStyles, Theme, Box } from '@material-ui/core'
 import { connect } from 'react-redux'
 
 type PageWithMenuProps = {

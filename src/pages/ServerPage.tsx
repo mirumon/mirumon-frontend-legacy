@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles, Theme, Box, Typography, IconButton } from '@material-ui/core'
+import { withStyles, Theme } from '@material-ui/core'
 import PageContent from 'UI/PageContent'
 import PageWithMenu from 'UI/PageWithMenu'
 
