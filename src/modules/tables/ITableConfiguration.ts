@@ -1,11 +1,11 @@
 export interface ITableConfiguration {
-    columns: Array<IColumnsConfiguration>
+    columns: Array<IColumnConfiguration>
 }
 
-export interface IColumnsConfiguration {
+export interface IColumnConfiguration {
     key: string,
     label: string,
-    type?: ColumnTypes,
+    type: ColumnTypes,
     editable?: boolean,
 }
 

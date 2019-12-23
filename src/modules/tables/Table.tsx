@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
 import { Theme, withStyles } from '@material-ui/core'
 import { ITableConfiguration } from './ITableConfiguration'
+import { ITableData } from './ITableData'
+import TableCell from './TableCell';
 
 interface TableProps {
+    data?: ITableData
     configuration: ITableConfiguration
     classes: any
 }
 
 class Table extends Component<TableProps> {
     render() {
-        const { configuration, classes } = this.props
+        const { configuration, data = null, classes } = this.props
         return (
             <table className={classes.table}>
-                <tr className={classes.trHead}>
+                <tr>
                     {
                         configuration.columns.map(column => {
                             const { key, label = key, type = 'text' } = column
@@ -24,7 +27,17 @@ class Table extends Component<TableProps> {
                         })
                     }
                 </tr>
-                <tr></tr>
+                {
+                    data && data.map(record => (
+                        <tr>
+                            {
+                                Object.keys(record).map(key => (
+                                    <TableCell configuration={configuration.columns.find(o => o.key === key)} data={record[key]} />
+                                ))
+                            }
+                        </tr>
+                    ))
+                }
             </table>
         )
     }
@@ -36,9 +49,6 @@ export default withStyles(({ palette, typography }: Theme) => ({
         borderCollapse: 'collapse',
         fontFamily: typography.fontFamily,
     },
-    trHead: {
-        
-    },
     th: {
         boxSizing: 'border-box',
         textAlign: 'left',
@@ -48,5 +58,6 @@ export default withStyles(({ palette, typography }: Theme) => ({
     },
     td: {
         width: 'auto',
+        padding: '15px 20px',
     }
 }))(Table)

@@ -5,8 +5,8 @@ import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import SearchInput from 'UI/SearchInput'
 import PageWithMenu from 'UI/PageWithMenu'
-import { ITableConfiguration } from 'modules/tables/ITableConfiguration'
-import Table from 'modules/tables/Table'
+import { ITableConfiguration } from 'modules/Tables/ITableConfiguration'
+import Table from 'modules/Tables/Table'
 
 type HomePageProps = {
     classes: any
@@ -56,7 +56,25 @@ class HomePage extends Component<HomePageProps> {
                         </Box>
                     </Box>
                     <Box className={classes.tableHolder}>
-                        <Table configuration={tableConfiguration} />
+                        <Table configuration={tableConfiguration} data={[{
+                            name: {
+                                value: 'Alex'
+                            },
+                            right: {
+                                value: 123,
+                                variants: [{
+                                    id: 123,
+                                    label: 'One',
+                                }]
+                            },
+                            groups: {
+                                value: [{
+                                    isSelected: false,
+                                    id: 123,
+                                    label: 'someGroup'
+                                }]
+                            }
+                        }]} />
                     </Box>
                 </PageContent>
             </PageWithMenu>
