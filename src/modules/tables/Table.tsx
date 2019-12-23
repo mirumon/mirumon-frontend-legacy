@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { Theme, withStyles } from '@material-ui/core'
 import { ITableConfiguration } from './ITableConfiguration'
 import { ITableData } from './ITableData'
-import TableCell from './TableCell';
+import TableCell from './TableCell'
+import TableRowActions from './TableRowActions'
 
 interface TableProps {
     data?: ITableData
@@ -26,6 +27,7 @@ class Table extends Component<TableProps> {
                             )
                         })
                     }
+                    <th className={classes.th} key={`Table::actions`}></th>
                 </tr>
                 {
                     data && data.map(record => (
@@ -34,6 +36,11 @@ class Table extends Component<TableProps> {
                                 Object.keys(record).map(key => (
                                     <TableCell configuration={configuration.columns.find(o => o.key === key)} data={record[key]} />
                                 ))
+                            }
+                            {
+                                configuration.rows && configuration.rows.actions && (
+                                    <TableRowActions actions={configuration.rows.actions} />
+                                )
                             }
                         </tr>
                     ))

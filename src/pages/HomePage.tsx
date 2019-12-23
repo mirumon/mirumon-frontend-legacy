@@ -13,6 +13,9 @@ type HomePageProps = {
 }
 
 const tableConfiguration:ITableConfiguration = {
+    rows: {
+        actions: ['create', 'update', 'delete'],
+    },
     columns: [
         {
             key: 'name',
