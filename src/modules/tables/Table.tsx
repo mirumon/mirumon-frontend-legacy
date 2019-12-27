@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { Theme, withStyles } from '@material-ui/core'
 import { ITableConfiguration } from './ITableConfiguration'
 import { ITableData } from './ITableData'
-import TableCell from './TableCell'
-import TableRowActions from './TableRowActions'
+import TableRow from './TableRow'
 
 interface TableProps {
     data?: ITableData
@@ -33,20 +32,7 @@ class Table extends Component<TableProps> {
                 </thead>
                 <tbody>
                     {
-                        data && data.map(record => (
-                            <tr>
-                                {
-                                    Object.keys(record).map(key => (
-                                        <TableCell configuration={configuration.columns.find(o => o.key === key)} data={record[key]} isEditing={true}/>
-                                    ))
-                                }
-                                {
-                                    configuration.rows && configuration.rows.actions && (
-                                        <TableRowActions actions={configuration.rows.actions} />
-                                    )
-                                }
-                            </tr>
-                        ))
+                        data && data.map(record => (<TableRow configuration={configuration} data={record}/>))
                     }
                 </tbody>
             </table>

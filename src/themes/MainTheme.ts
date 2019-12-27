@@ -15,6 +15,9 @@ const MainTheme: Theme = createMuiTheme({
         error: {
             main: '#BB6B75'
         },
+        success: {
+            main: '#3FB2AA'
+        },
         text: {
             primary: 'white',
             secondary: '#425269',
