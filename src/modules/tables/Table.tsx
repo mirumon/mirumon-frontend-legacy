@@ -16,35 +16,39 @@ class Table extends Component<TableProps> {
         const { configuration, data = null, classes } = this.props
         return (
             <table className={classes.table}>
-                <tr>
-                    {
-                        configuration.columns.map(column => {
-                            const { key, label = key, type = 'text' } = column
-                            return (
-                                <th className={classes.th} key={`${key}:${type}:${label}`}>
-                                    <h3 style={{ margin: 0 }}>{label}</h3>
-                                </th>
-                            )
-                        })
-                    }
-                    <th className={classes.th} key={`Table::actions`}></th>
-                </tr>
-                {
-                    data && data.map(record => (
-                        <tr>
-                            {
-                                Object.keys(record).map(key => (
-                                    <TableCell configuration={configuration.columns.find(o => o.key === key)} data={record[key]} />
-                                ))
-                            }
-                            {
-                                configuration.rows && configuration.rows.actions && (
-                                    <TableRowActions actions={configuration.rows.actions} />
+                <thead>
+                    <tr>
+                        {
+                            configuration.columns.map(column => {
+                                const { key, label = key, type = 'text' } = column
+                                return (
+                                    <th className={classes.th} key={`${key}:${type}:${label}`}>
+                                        <h3 style={{ margin: 0 }}>{label}</h3>
+                                    </th>
                                 )
-                            }
-                        </tr>
-                    ))
-                }
+                            })
+                        }
+                        <th className={classes.th} key={`Table::actions`}></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        data && data.map(record => (
+                            <tr>
+                                {
+                                    Object.keys(record).map(key => (
+                                        <TableCell configuration={configuration.columns.find(o => o.key === key)} data={record[key]} isEditing={true}/>
+                                    ))
+                                }
+                                {
+                                    configuration.rows && configuration.rows.actions && (
+                                        <TableRowActions actions={configuration.rows.actions} />
+                                    )
+                                }
+                            </tr>
+                        ))
+                    }
+                </tbody>
             </table>
         )
     }

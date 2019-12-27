@@ -68,14 +68,30 @@ class HomePage extends Component<HomePageProps> {
                                 variants: [{
                                     id: 123,
                                     label: 'One',
+                                },
+                                {
+                                    id: 124,
+                                    label: 'Two',
                                 }]
                             },
                             groups: {
-                                value: [{
+                                value: [
+                                {
                                     isSelected: false,
                                     id: 123,
                                     label: 'someGroup'
-                                }]
+                                },
+                                {
+                                    isSelected: true,
+                                    id: 124,
+                                    label: 'someGroup2'
+                                },
+                                {
+                                    isSelected: true,
+                                    id: 125,
+                                    label: 'someGroup3'
+                                }
+                            ]
                             }
                         }]} />
                     </Box>
