@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles, Theme, Box, Typography, IconButton } from '@material-ui/core'
+import { withStyles, Theme, Box, Typography, IconButton, Chip } from '@material-ui/core'
 import PageContent from 'UI/PageContent'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FilterListIcon from '@material-ui/icons/FilterList'
@@ -7,10 +7,9 @@ import SearchInput from 'UI/SearchInput'
 import PageWithMenu from 'UI/PageWithMenu'
 import { ITableConfiguration } from 'modules/Tables/ITableConfiguration'
 import Table from 'modules/Tables/Table'
+import FilterPermissionsSelector from 'UI/Home/FilterPermissionsSelector'
+import ClearIcon from '@material-ui/icons/Clear';
 
-type HomePageProps = {
-    classes: any
-}
 
 const tableConfiguration:ITableConfiguration = {
     rows: {
@@ -38,9 +37,39 @@ const tableConfiguration:ITableConfiguration = {
     ]
 }
 
-class HomePage extends Component<HomePageProps> {
+type HomePageProps = {
+    classes: any
+}
+
+interface HomePageState {
+    isPermissionsSelectorShowed: boolean
+    permissionFilter: string | null
+}
+
+class HomePage extends Component<HomePageProps, HomePageState> {
+
+    constructor(props: HomePageProps){
+        super(props)
+        this.state = {
+            isPermissionsSelectorShowed: false,
+            permissionFilter: null
+        }
+    }
+
+    handleFilterIconClick = () => {
+        this.setState({
+            isPermissionsSelectorShowed: !this.state.isPermissionsSelectorShowed,
+            permissionFilter: this.state.isPermissionsSelectorShowed ? this.state.permissionFilter : null
+        })
+    }
+
+    handleFilterChange = (value: string) => {
+        this.setState({ permissionFilter: value })
+    }
+
     render() {
         const { classes } = this.props
+        const { isPermissionsSelectorShowed, permissionFilter } = this.state
         return (
             <PageWithMenu>
                 <PageContent>
@@ -52,8 +81,29 @@ class HomePage extends Component<HomePageProps> {
                             </IconButton>
                         </Box>
                         <Box>
-                            <IconButton className={classes.inline}>
-                                <FilterListIcon />
+                            {
+                                isPermissionsSelectorShowed && (
+                                    <FilterPermissionsSelector
+                                        className={classes.permissionsSelector}
+                                        value={permissionFilter}
+                                        variants={[
+                                            {
+                                                value: 'only-users',
+                                                label: 'only Users'
+                                            },
+                                            {
+                                                value: 'only-admin',
+                                                label: 'only Admins'
+                                            }
+                                        ]}
+                                        onChange={this.handleFilterChange}
+                                    />
+                                )
+                            }
+                            <IconButton className={[classes.inline, classes.filterIcon].join(' ')} onClick={this.handleFilterIconClick}>
+                                {
+                                    isPermissionsSelectorShowed ? <ClearIcon /> : <FilterListIcon />
+                                }
                             </IconButton>
                             <SearchInput className={[classes.inline, classes.searchInput].join(' ')} placeholder="name, group"/>
                         </Box>
@@ -121,5 +171,11 @@ export default withStyles(({ palette }: Theme) => ({
     },
     tableHolder: {
         marginTop: '30px'
+    },
+    permissionsSelector: {
+        display: 'inline-block',
+    },
+    filterIcon: {
+        marginRight: 20
     }
 }))(HomePage)

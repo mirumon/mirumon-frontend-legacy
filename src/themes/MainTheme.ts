@@ -19,7 +19,7 @@ const MainTheme: Theme = createMuiTheme({
             main: '#3FB2AA'
         },
         text: {
-            primary: 'white',
+            primary: '#fff',
             secondary: '#425269',
             disabled: 'rgba(255, 255, 255, 0.45)',
             hint: '#50637D'
