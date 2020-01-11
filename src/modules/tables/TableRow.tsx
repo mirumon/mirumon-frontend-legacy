@@ -4,6 +4,7 @@ import { IColumnProps } from './ITableData'
 import { IEditable } from './CellTypes/IEditable'
 import TableCell from './TableCell'
 import TableRowActions from './TableRowActions'
+import { EditContainer } from 'utils/EditContainer';
 
 interface TableRowProps {
     configuration: ITableConfiguration
@@ -32,8 +33,9 @@ class TableRow extends Component<TableRowProps, TableRowState> {
         })
     }
 
-    onApplyHandler = () => {
+    onApplyHandler = (data: Record<string, IColumnProps>) => {
         this.setState({
+            data,
             isEditing: false
         })
     }
@@ -46,25 +48,47 @@ class TableRow extends Component<TableRowProps, TableRowState> {
 
     render() {
         const { configuration } = this.props
-        const { data, isEditing } = this.state
+        const { isEditing } = this.state
         return (
             <tr>
-                {
-                    Object.keys(data).map(key => (
-                        <TableCell configuration={configuration.columns.find(o => o.key === key)} data={data[key]} isEditing={isEditing}/>
-                    ))
-                }
-                {
-                    configuration.rows && configuration.rows.actions && (
-                        <TableRowActions 
-                            actions={configuration.rows.actions}
-                            isEditing={isEditing}
-                            onApply={this.onApplyHandler}
-                            onEdit={this.onEditHandler}
-                            onCancel={this.onCancelHandler}
-                        />
-                    )
-                }
+                <EditContainer<Record<string, IColumnProps>>
+                    value={this.state.data}
+                    >
+                    {
+                        (value, setValue, reset) => (
+                            <>
+                                {
+                                    Object.keys(value).map(key => (
+                                        <TableCell
+                                            key={`Row:${key}`}
+                                            configuration={configuration.columns.find(o => o.key === key)}
+                                            data={value[key]}
+                                            isEditing={isEditing}
+                                            onChange={(newValue) => setValue({
+                                                ...value,
+                                                [key]: {
+                                                    ...value[key],
+                                                    value: newValue,
+                                                }
+                                            })}
+                                        />
+                                    ))
+                                }
+                                {
+                                    configuration.rows && configuration.rows.actions && (
+                                        <TableRowActions 
+                                            actions={configuration.rows.actions}
+                                            isEditing={isEditing}
+                                            onApply={() => this.onApplyHandler(value)}
+                                            onEdit={this.onEditHandler}
+                                            onCancel={() => {reset(); this.onCancelHandler()}}
+                                        />
+                                    )
+                                }
+                            </>
+                        )
+                    }
+                </EditContainer>
             </tr>
         )
     }

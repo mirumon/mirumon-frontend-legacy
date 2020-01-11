@@ -9,42 +9,24 @@ import CheckListCell from './CellTypes/CheckListCell'
 interface TableCellProps extends IEditable<IColumnProps>{
     configuration?: IColumnConfiguration
     data: IColumnProps
+    onChange?(value: any): any
 }
 
-interface TableCellState {
-    data: IColumnProps
-}
-
-class TableCell extends Component<TableCellProps, TableCellState> {
-
-    constructor(props: TableCellProps){
-        super(props)
-        this.state = {
-            data: props.data
-        }
-    }
-
-    onChangeHandler = (value: any) => {
-        this.setState({
-            data: {
-                value
-            }
-        })
-    }
+class TableCell extends Component<TableCellProps> {
 
     render() {
         
         const { configuration, isEditing } = this.props
         switch(configuration && configuration.type) {
             case 'text':
-                return (<TextCell value={(this.state.data as ITextColumnProps).value} onChange={this.onChangeHandler} isEditing={isEditing} />)
+                return (<TextCell value={(this.props.data as ITextColumnProps).value} onChange={this.props.onChange} isEditing={isEditing} />)
             case 'number':
-                return (<td>{this.state.data.value}</td>)
+                return (<td>{this.props.data.value}</td>)
             case 'select':
-                const stateData = this.state.data as ISelectColumnProps
-                return (<SelectCell value={stateData.value} variants={(this.props.data as ISelectColumnProps).variants} onChange={this.onChangeHandler} isEditing={isEditing}/>)
+                const stateData = this.props.data as ISelectColumnProps
+                return (<SelectCell value={stateData.value} variants={(this.props.data as ISelectColumnProps).variants} onChange={this.props.onChange} isEditing={isEditing}/>)
             case 'check-list':
-                return (<CheckListCell value={(this.state.data as ICheckListColumnProps).value} onChange={this.onChangeHandler} isEditing={isEditing} />)
+                return (<CheckListCell value={(this.props.data as ICheckListColumnProps).value} onChange={this.props.onChange} isEditing={isEditing} />)
             default:
                 return (null)
         }

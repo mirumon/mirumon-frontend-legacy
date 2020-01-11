@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles, Theme, Box, Typography, IconButton, Chip } from '@material-ui/core'
+import { withStyles, Theme, Box, Typography, IconButton } from '@material-ui/core'
 import PageContent from 'UI/PageContent'
 import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FilterListIcon from '@material-ui/icons/FilterList'

@@ -8,9 +8,9 @@ import CloseIcon from '@material-ui/icons/Close'
 
 interface EditingOptions {
     isEditing?: boolean
-    onCancel?(): void
-    onApply?(): void
-    onEdit?(): void
+    onCancel?(): any
+    onApply?(): any
+    onEdit?(): any
 }
 
 interface TableRowActionsProps extends EditingOptions{
