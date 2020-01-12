@@ -27,12 +27,37 @@ const tableConfiguration:ITableConfiguration = {
             label: 'Right',
             type: 'select',
             editable: true,
+            options: {
+                default: 'one',
+                variants: [
+                    {
+                        id: 'one',
+                        label: 'One'
+                    },
+                    {
+                        id: 'two',
+                        label: 'Two'
+                    },
+                ]
+            }
         },
         {
             key: 'groups',
             label: 'Groups',
             type: 'check-list',
             editable: true,
+            options: {
+                variants: [
+                    {
+                        id: 'one',
+                        label: 'One-group'
+                    },
+                    {
+                        id: 'two',
+                        label: 'Two-group'
+                    },
+                ]
+            }
         }
     ]
 }
@@ -114,34 +139,10 @@ class HomePage extends Component<HomePageProps, HomePageState> {
                                 value: 'Alex'
                             },
                             right: {
-                                value: 123,
-                                variants: [{
-                                    id: 123,
-                                    label: 'One',
-                                },
-                                {
-                                    id: 124,
-                                    label: 'Two',
-                                }]
+                                value: 'one'
                             },
                             groups: {
-                                value: [
-                                {
-                                    isSelected: false,
-                                    id: 123,
-                                    label: 'someGroup'
-                                },
-                                {
-                                    isSelected: true,
-                                    id: 124,
-                                    label: 'someGroup2'
-                                },
-                                {
-                                    isSelected: true,
-                                    id: 125,
-                                    label: 'someGroup3'
-                                }
-                            ]
+                                value: ['one', 'two']
                             }
                         }]} />
                     </Box>

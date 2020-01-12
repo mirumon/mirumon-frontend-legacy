@@ -1,36 +1,31 @@
 import React from 'react'
-import { ICheckListColumnProps, TCheckListValue, TID } from '../ITableData'
+import { ICheckListColumnProps, TID } from '../ITableData'
 import { IEditable } from './IEditable'
 import { Component } from 'react'
 import { Theme, withStyles, Select, MenuItem } from '@material-ui/core'
+import { ICheckListColumnConfigurationProps } from '../ITableConfiguration'
 
-interface CheckListCellProps extends ICheckListColumnProps, IEditable<Array<TCheckListValue>> {
+interface CheckListCellProps extends ICheckListColumnConfigurationProps, ICheckListColumnProps, IEditable<Array<TID>> {
     classes: any
 }
 
 class CheckListCell extends Component<CheckListCellProps> {
     render() {
-        const { value, isEditing, onChange, classes } = this.props
+        const { value, variants, isEditing, onChange, classes } = this.props
+        const variantsMap = new Map()
+        variants?.forEach(v => variantsMap.set(v.id, v.label))
         return (
             <td className={classes.td}>
                 {!isEditing ? (
-                    value.filter(({ isSelected }) => isSelected)
-                        .map(({ label }) => label)
-                        .join(', ')
+                    value.map(v => variantsMap.get(v)).join(', ')
                 ) : (
                     <Select
                         classes={{
                             root: classes.input,
                         }}
-                        value={value.filter(({ isSelected }) => isSelected).map(({ id }) => id)}
+                        value={value}
                         onChange={(e) => {
-                            const ids = new Set(e.target.value as Array<TID>)
-                            const newValue: Array<TCheckListValue> = value.map(({ id, label }) => ({
-                                id,
-                                label,
-                                isSelected: ids.has(id)
-                            }))
-                            onChange && onChange(newValue)
+                            onChange && onChange(e.target.value as Array<TID>)
                         }}
                         MenuProps={{ classes: { paper: classes.paper } }}
                         inputProps={{ classes: { underline: classes.underline }}}
@@ -38,7 +33,7 @@ class CheckListCell extends Component<CheckListCellProps> {
                         displayEmpty
                     >
                         {
-                            value.map(({ id, label, isSelected }) => (
+                            variants?.map(({id, label}) => (
                                 <MenuItem key={`${id}:${label}`} value={id}>{label}</MenuItem>
                             ))
                         }

@@ -1,10 +1,11 @@
 import React from 'react'
-import { ISelectColumnProps, TID } from '../ITableData'
+import { ISelectColumnDataProps, TID } from '../ITableData'
 import { IEditable } from './IEditable'
 import { Component } from 'react'
 import { Theme, withStyles, Select, MenuItem } from '@material-ui/core'
+import { ISelectColumnConfigurationProps } from '../ITableConfiguration'
 
-interface SelectCellProps extends ISelectColumnProps, IEditable<TID> {
+interface SelectCellProps extends ISelectColumnConfigurationProps, ISelectColumnDataProps, IEditable<TID> {
     classes: any
 }
 
@@ -14,7 +15,7 @@ class SelectCell extends Component<SelectCellProps> {
         return (
             <td className={classes.td}>
                 {!isEditing ? (
-                    variants.find(variant => variant.id === value)?.label
+                    variants?.find(variant => variant.id === value)?.label
                 ) : (
                     <Select
                         autoWidth
@@ -24,7 +25,7 @@ class SelectCell extends Component<SelectCellProps> {
                         MenuProps={{ classes: { paper: classes.paper } }}
                 >
                     {
-                        variants.map(({id, label}) => (
+                        variants?.map(({id, label}) => (
                             <MenuItem key={`${id}:${label}`} value={id}>{label}</MenuItem>
                         ))
                     }

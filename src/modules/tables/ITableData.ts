@@ -1,4 +1,4 @@
-export type IColumnProps = ITextColumnProps | INumberColumnProps | ICheckListColumnProps | ISelectColumnProps
+export type IColumnProps = ITextColumnProps | INumberColumnProps | ICheckListColumnProps | ISelectColumnDataProps
 
 export interface ITableData extends Array<Record<string, IColumnProps>> {}
 
@@ -13,22 +13,14 @@ export interface INumberColumnProps {
 }
 
 export interface ICheckListColumnProps {
-    value: Array<TCheckListValue>
+    value: Array<TID>
 }
 
-export type TCheckListValue = {
-    isSelected?: boolean,
-    id: TID,
-    label: string
-}
-
-export interface ISelectColumnProps {
+export interface ISelectColumnDataProps {
     value: TID,
-    variants: Array<TSelectValue>
 }
 
-export type TSelectValue = {
+export interface IIdentifiableValue {
     id: TID,
     label: string
 }
-
