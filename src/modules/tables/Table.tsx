@@ -3,16 +3,25 @@ import { Theme, withStyles } from '@material-ui/core'
 import { ITableConfiguration } from './ITableConfiguration'
 import { ITableData } from './ITableData'
 import TableRow from './TableRow'
+import CreatingRow from './CreatingRow'
+
+interface ITableHandlers {
+    onCreate?(): any
+    onUpdate?(): any
+    onDelete?(): any
+}
 
 interface TableProps {
+    isCreating?: boolean
     data?: ITableData
     configuration: ITableConfiguration
+    handlers?: ITableHandlers
     classes: any
 }
 
 class Table extends Component<TableProps> {
     render() {
-        const { configuration, data = null, classes } = this.props
+        const { isCreating, configuration, data = null, classes } = this.props
         return (
             <table className={classes.table}>
                 <thead>
@@ -31,6 +40,13 @@ class Table extends Component<TableProps> {
                     </tr>
                 </thead>
                 <tbody>
+                    {
+                        isCreating && <CreatingRow
+                            configuration={configuration}
+                            onApply={() => {}}
+                            onClose={() => {}}
+                        />
+                    }
                     {
                         data && data.map(record => (<TableRow configuration={configuration} data={record}/>))
                     }

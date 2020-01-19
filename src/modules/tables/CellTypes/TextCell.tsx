@@ -8,15 +8,27 @@ interface TextCellProps extends ITextColumnProps, IEditable<string> {
     classes: any
 }
 
+interface TextCellState {
+    value: string
+}
+
 class TextCell extends Component<TextCellProps> {
+
     render() {
         const { value, isEditing, onChange, classes } = this.props
+        console.log(value)
         return (
             <td className={classes.td}>
-                {!isEditing ? value : <Input classes={{
-                    root: classes.input,
-                    underline: classes.underline
-                }} value={value} onChange={e => onChange && onChange(e.target.value)} />}
+                {!isEditing ? value : (
+                    <Input
+                        classes={{
+                            root: classes.input,
+                            underline: classes.underline
+                        }}
+                        value={value}
+                        onChange={e => onChange && onChange(e.target.value)}
+                    />
+                )}
             </td>
         )
     }

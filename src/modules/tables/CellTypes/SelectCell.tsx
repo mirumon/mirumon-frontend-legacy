@@ -20,7 +20,7 @@ class SelectCell extends Component<SelectCellProps> {
                     <Select
                         autoWidth
                         classes={{ root: classes.input }}
-                        value={value}
+                        value={value || ''}
                         onChange={(e) => onChange && onChange(e.target.value as string)}
                         MenuProps={{ classes: { paper: classes.paper } }}
                 >

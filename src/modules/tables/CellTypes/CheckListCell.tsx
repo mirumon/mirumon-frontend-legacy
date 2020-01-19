@@ -23,12 +23,11 @@ class CheckListCell extends Component<CheckListCellProps> {
                         classes={{
                             root: classes.input,
                         }}
-                        value={value}
+                        value={value || []}
                         onChange={(e) => {
                             onChange && onChange(e.target.value as Array<TID>)
                         }}
                         MenuProps={{ classes: { paper: classes.paper } }}
-                        inputProps={{ classes: { underline: classes.underline }}}
                         multiple
                         displayEmpty
                     >

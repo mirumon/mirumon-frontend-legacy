@@ -5,62 +5,10 @@ import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import SearchInput from 'UI/SearchInput'
 import PageWithMenu from 'UI/PageWithMenu'
-import { ITableConfiguration } from 'modules/Tables/ITableConfiguration'
 import Table from 'modules/Tables/Table'
 import FilterPermissionsSelector from 'UI/Home/FilterPermissionsSelector'
 import ClearIcon from '@material-ui/icons/Clear';
-
-
-const tableConfiguration:ITableConfiguration = {
-    rows: {
-        actions: ['create', 'update', 'delete'],
-    },
-    columns: [
-        {
-            key: 'name',
-            label: 'Name',
-            type: 'text',
-            editable: true,
-        },
-        {
-            key: 'right',
-            label: 'Right',
-            type: 'select',
-            editable: true,
-            options: {
-                default: 'one',
-                variants: [
-                    {
-                        id: 'one',
-                        label: 'One'
-                    },
-                    {
-                        id: 'two',
-                        label: 'Two'
-                    },
-                ]
-            }
-        },
-        {
-            key: 'groups',
-            label: 'Groups',
-            type: 'check-list',
-            editable: true,
-            options: {
-                variants: [
-                    {
-                        id: 'one',
-                        label: 'One-group'
-                    },
-                    {
-                        id: 'two',
-                        label: 'Two-group'
-                    },
-                ]
-            }
-        }
-    ]
-}
+import tableConfiguration from 'modules/Users/tableConfiguration'
 
 type HomePageProps = {
     classes: any
@@ -81,14 +29,14 @@ class HomePage extends Component<HomePageProps, HomePageState> {
         }
     }
 
-    handleFilterIconClick = () => {
+    onFilterIconClickHandler = () => {
         this.setState({
             isPermissionsSelectorShowed: !this.state.isPermissionsSelectorShowed,
             permissionFilter: this.state.isPermissionsSelectorShowed ? this.state.permissionFilter : null
         })
     }
 
-    handleFilterChange = (value: string) => {
+    onFilterChangeHandler = (value: string) => {
         this.setState({ permissionFilter: value })
     }
 
@@ -121,11 +69,11 @@ class HomePage extends Component<HomePageProps, HomePageState> {
                                                 label: 'only Admins'
                                             }
                                         ]}
-                                        onChange={this.handleFilterChange}
+                                        onChange={this.onFilterChangeHandler}
                                     />
                                 )
                             }
-                            <IconButton className={[classes.inline, classes.filterIcon].join(' ')} onClick={this.handleFilterIconClick}>
+                            <IconButton className={[classes.inline, classes.filterIcon].join(' ')} onClick={this.onFilterIconClickHandler}>
                                 {
                                     isPermissionsSelectorShowed ? <ClearIcon /> : <FilterListIcon />
                                 }
@@ -134,17 +82,26 @@ class HomePage extends Component<HomePageProps, HomePageState> {
                         </Box>
                     </Box>
                     <Box className={classes.tableHolder}>
-                        <Table configuration={tableConfiguration} data={[{
-                            name: {
-                                value: 'Alex'
-                            },
-                            right: {
-                                value: 'one'
-                            },
-                            groups: {
-                                value: ['one', 'two']
-                            }
-                        }]} />
+                        <Table
+                            configuration={tableConfiguration}
+                            data={[{
+                                name: {
+                                    value: 'Alex'
+                                },
+                                right: {
+                                    value: 'one'
+                                },
+                                groups: {
+                                    value: ['one', 'two']
+                                }
+                            }]}
+                            isCreating
+                            handlers={{
+                                onCreate: () => {},
+                                onUpdate: () => {},
+                                onDelete: () => {}
+                            }}
+                        />
                     </Box>
                 </PageContent>
             </PageWithMenu>
