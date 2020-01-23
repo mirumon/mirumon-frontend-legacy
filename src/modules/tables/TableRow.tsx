@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
 import { ITableConfiguration } from './ITableConfiguration'
-import { IColumnProps } from './ITableData'
-import { IEditable } from './CellTypes/IEditable'
 import TableCell from './TableCell'
 import TableRowActions from './TableRowActions'
 import { EditContainer } from 'utils/EditContainer';
+import { ITableRecord } from './ITableData'
 
 interface TableRowProps {
     configuration: ITableConfiguration
-    data: Record<string, IColumnProps>
-    onChange?(value: Record<string, IColumnProps>): void
+    data: ITableRecord
+    onChange?(value: ITableRecord): void
 }
 
 interface TableRowState {
-    data: Record<string, IColumnProps>
+    data: ITableRecord
     isEditing: boolean
 }
 
@@ -33,7 +32,7 @@ class TableRow extends Component<TableRowProps, TableRowState> {
         })
     }
 
-    onApplyHandler = (data: Record<string, IColumnProps>) => {
+    onApplyHandler = (data: ITableRecord) => {
         this.setState({
             data,
             isEditing: false
@@ -51,7 +50,7 @@ class TableRow extends Component<TableRowProps, TableRowState> {
         const { isEditing } = this.state
         return (
             <tr>
-                <EditContainer<Record<string, IColumnProps>>
+                <EditContainer<ITableRecord>
                     value={this.state.data}
                     >
                     {
@@ -66,10 +65,7 @@ class TableRow extends Component<TableRowProps, TableRowState> {
                                             isEditing={isEditing}
                                             onChange={(newValue) => setValue({
                                                 ...value,
-                                                [key]: {
-                                                    ...value[key],
-                                                    value: newValue,
-                                                }
+                                                [key]: newValue
                                             })}
                                         />
                                     ))

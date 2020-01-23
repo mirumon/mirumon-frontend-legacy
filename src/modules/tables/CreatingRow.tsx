@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import { ITableConfiguration } from './ITableConfiguration'
-import { IColumnProps } from './ITableData'
 import TableCell from './TableCell'
 import TableRowActions from './TableRowActions'
 import { EditContainer } from 'utils/EditContainer';
+import { ITableRecord } from './ITableData';
 
 interface CreatingRowProps {
     configuration: ITableConfiguration
-    onApply?(value: Record<string, IColumnProps>): any
+    onApply?(value: Partial<ITableRecord>): any
     onClose?(): any
 }
 
 interface CreatingRowState {
-    data: Record<string, IColumnProps>
+    data: Partial<ITableRecord>
 }
 
 class CreatingRow extends Component<CreatingRowProps, CreatingRowState> {
@@ -24,23 +24,15 @@ class CreatingRow extends Component<CreatingRowProps, CreatingRowState> {
         }
     }
 
-    onCancelHandler = () => {
-    }
-
-    onApplyHandler = (data: Record<string, IColumnProps>) => {
-    }
-
     render() {
-        const { configuration } = this.props
+        const { onApply, onClose, configuration } = this.props
         return (
             <tr>
-                <EditContainer<Record<string, IColumnProps>>
+                <EditContainer<Partial<ITableRecord>>
                     value={this.state.data}
                     >
                     {
-                        (value, setValue, reset) => {
-                            console.log(value)
-                            return (
+                        (value, setValue, reset) => (
                             <>
                                 {
                                     configuration.columns.map(columnConfiguration => (
@@ -51,9 +43,7 @@ class CreatingRow extends Component<CreatingRowProps, CreatingRowState> {
                                             isEditing
                                             onChange={(newValue) => setValue({
                                                 ...value,
-                                                [columnConfiguration.key]: {
-                                                    value: newValue,
-                                                }
+                                                [columnConfiguration.key]: newValue
                                             })}
                                         />
                                     ))
@@ -63,13 +53,13 @@ class CreatingRow extends Component<CreatingRowProps, CreatingRowState> {
                                         <TableRowActions
                                             actions={configuration.rows.actions}
                                             isEditing={true}
-                                            onApply={() => this.onApplyHandler(value)}
-                                            onCancel={() => {reset(); this.onCancelHandler()}}
+                                            onApply={() => onApply && onApply(value)}
+                                            onCancel={() => {reset(); onClose && onClose()}}
                                         />
                                     )
                                 }
                             </>
-                        )}
+                        )
                     }
                 </EditContainer>
             </tr>

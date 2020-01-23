@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { IColumnConfiguration } from './ITableConfiguration'
-import { IColumnProps, ITextColumnProps, ISelectColumnDataProps, ICheckListColumnProps } from './ITableData'
 import TextCell from './CellTypes/TextCell'
 import SelectCell from './CellTypes/SelectCell'
 import { IEditable } from './CellTypes/IEditable'
 import CheckListCell from './CellTypes/CheckListCell'
+import { TableType, TID } from './ITableData'
 
-interface TableCellProps extends IEditable<IColumnProps>{
+interface TableCellProps extends IEditable<TableType>{
     configuration?: IColumnConfiguration
-    data?: IColumnProps
+    data?: TableType
     onChange?(value: any): any
 }
 
@@ -21,18 +21,18 @@ class TableCell extends Component<TableCellProps> {
             case 'text':
                 return (
                     <TextCell
-                        value={(this.props.data as ITextColumnProps)?.value}
+                        value={this.props.data as string}
                         onChange={this.props.onChange}
                         isEditing={isEditing}
                     />
                 )
             case 'number':
-                return (<td>{this.props.data?.value}</td>)
+                return (<td>{this.props.data}</td>)
             case 'select':
-                const selectColumnDataProps = this.props.data as ISelectColumnDataProps
+                const selectColumnDataProps = this.props.data as TID
                 return (
                     <SelectCell
-                        value={selectColumnDataProps?.value}
+                        value={selectColumnDataProps}
                         variants={this.props.configuration?.options?.variants}
                         onChange={this.props.onChange} isEditing={isEditing}
                     />
@@ -40,7 +40,7 @@ class TableCell extends Component<TableCellProps> {
             case 'check-list':
                 return (
                     <CheckListCell
-                        value={(this.props.data as ICheckListColumnProps)?.value}
+                        value={(this.props.data as Array<TID>)}
                         variants={this.props.configuration?.options?.variants}
                         onChange={this.props.onChange}
                         isEditing={isEditing}

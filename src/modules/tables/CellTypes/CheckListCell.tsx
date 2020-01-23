@@ -1,11 +1,12 @@
 import React from 'react'
-import { ICheckListColumnProps, TID } from '../ITableData'
+import { TID } from '../ITableData'
 import { IEditable } from './IEditable'
 import { Component } from 'react'
 import { Theme, withStyles, Select, MenuItem } from '@material-ui/core'
 import { ICheckListColumnConfigurationProps } from '../ITableConfiguration'
 
-interface CheckListCellProps extends ICheckListColumnConfigurationProps, ICheckListColumnProps, IEditable<Array<TID>> {
+interface CheckListCellProps extends ICheckListColumnConfigurationProps, IEditable<Array<TID>> {
+    value: Array<TID>
     classes: any
 }
 

@@ -1,10 +1,10 @@
 import React, { ChangeEvent } from 'react'
-import { ITextColumnProps } from '../ITableData'
 import { IEditable } from './IEditable'
 import { Component } from 'react'
 import { Theme, withStyles, Input } from '@material-ui/core'
 
-interface TextCellProps extends ITextColumnProps, IEditable<string> {
+interface TextCellProps extends IEditable<string> {
+    value?: string
     classes: any
 }
 

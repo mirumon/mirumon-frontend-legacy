@@ -1,11 +1,12 @@
 import React from 'react'
-import { ISelectColumnDataProps, TID } from '../ITableData'
+import { TID } from '../ITableData'
 import { IEditable } from './IEditable'
 import { Component } from 'react'
 import { Theme, withStyles, Select, MenuItem } from '@material-ui/core'
 import { ISelectColumnConfigurationProps } from '../ITableConfiguration'
 
-interface SelectCellProps extends ISelectColumnConfigurationProps, ISelectColumnDataProps, IEditable<TID> {
+interface SelectCellProps extends ISelectColumnConfigurationProps, IEditable<TID> {
+    value: TID,
     classes: any
 }
 

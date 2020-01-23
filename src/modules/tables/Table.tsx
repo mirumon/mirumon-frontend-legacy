@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import { Theme, withStyles } from '@material-ui/core'
 import { ITableConfiguration } from './ITableConfiguration'
-import { ITableData } from './ITableData'
+import { ITableData, ITableRecord } from './ITableData'
 import TableRow from './TableRow'
 import CreatingRow from './CreatingRow'
 
 interface ITableHandlers {
-    onCreate?(): any
+    onCreate?(value: Partial<ITableRecord>): any
     onUpdate?(): any
     onDelete?(): any
+    onCreateCancel?(): any
 }
 
 interface TableProps {
@@ -21,7 +22,13 @@ interface TableProps {
 
 class Table extends Component<TableProps> {
     render() {
-        const { isCreating, configuration, data = null, classes } = this.props
+        const { 
+            isCreating,
+            configuration,
+            data = null,
+            classes,
+            handlers
+        } = this.props
         return (
             <table className={classes.table}>
                 <thead>
@@ -43,8 +50,8 @@ class Table extends Component<TableProps> {
                     {
                         isCreating && <CreatingRow
                             configuration={configuration}
-                            onApply={() => {}}
-                            onClose={() => {}}
+                            onApply={handlers?.onCreate}
+                            onClose={handlers?.onCreateCancel}
                         />
                     }
                     {

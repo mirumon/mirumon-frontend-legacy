@@ -1,26 +1,15 @@
-export type IColumnProps = ITextColumnProps | INumberColumnProps | ICheckListColumnProps | ISelectColumnDataProps
+export type TableType = string | number | Array<TID>
 
-export interface ITableData extends Array<Record<string, IColumnProps>> {}
+export type ITableRecord = IIdentifiable & Record<string, TableType>
+
+export interface ITableData extends Array<ITableRecord> {}
 
 export type TID = string | number
 
-export interface ITextColumnProps {
-    value: string,
+export interface IIdentifiable {
+    id: TID
 }
 
-export interface INumberColumnProps {
-    value: number,
-}
-
-export interface ICheckListColumnProps {
-    value: Array<TID>
-}
-
-export interface ISelectColumnDataProps {
-    value: TID,
-}
-
-export interface IIdentifiableValue {
-    id: TID,
+export interface IIdentifiableValue extends IIdentifiable {
     label: string
 }
