@@ -55,7 +55,7 @@ class Table extends Component<TableProps> {
                         />
                     }
                     {
-                        data && data.map(record => (<TableRow configuration={configuration} data={record}/>))
+                        data && data.map(record => (<TableRow key={"id" + record.id} configuration={configuration} data={record}/>))
                     }
                 </tbody>
             </table>
