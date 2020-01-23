@@ -23,6 +23,7 @@
     "reflect-metadata": "^0.1.13"
   },
   "scripts": {
+    "serve": "node serve.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -44,6 +45,7 @@
     ]
   },
   "devDependencies": {
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.3",
+    "express": "4.17.1"
   }
 }
