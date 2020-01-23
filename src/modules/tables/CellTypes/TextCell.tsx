@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { ChangeEvent } from 'react'
 import { ITextColumnProps } from '../ITableData'
 import { IEditable } from './IEditable'
 import { Component } from 'react'
-import { Input, Theme, withStyles } from '@material-ui/core'
+import { Theme, withStyles, Input } from '@material-ui/core'
 
 interface TextCellProps extends ITextColumnProps, IEditable<string> {
     classes: any
@@ -14,9 +14,15 @@ interface TextCellState {
 
 class TextCell extends Component<TextCellProps> {
 
+    onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        this.setState({
+            value: e.currentTarget.value
+        })
+        this.props.onChange && this.props.onChange(e.currentTarget.value)
+    }
+
     render() {
-        const { value, isEditing, onChange, classes } = this.props
-        console.log(value)
+        const { value, isEditing, classes } = this.props
         return (
             <td className={classes.td}>
                 {!isEditing ? value : (
@@ -25,8 +31,8 @@ class TextCell extends Component<TextCellProps> {
                             root: classes.input,
                             underline: classes.underline
                         }}
-                        value={value}
-                        onChange={e => onChange && onChange(e.target.value)}
+                        value={value || ''}
+                        onChange={this.onChangeHandler}
                     />
                 )}
             </td>
