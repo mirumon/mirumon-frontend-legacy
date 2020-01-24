@@ -2,13 +2,14 @@ FROM node:8.16.2-alpine
 
 WORKDIR /var/service
 
-COPY ./package*.json .
+COPY ./package.json ./
+COPY ./yarn.lock ./
 
-RUN npm install
+RUN yarn install
 
-COPY . .
+COPY . /var/service
 
-RUN npm run build
+RUN yarn build
 
 EXPOSE 80
 

@@ -5,11 +5,11 @@ import AddCircleIcon from '@material-ui/icons/AddCircle'
 import FilterListIcon from '@material-ui/icons/FilterList'
 import SearchInput from 'UI/SearchInput'
 import PageWithMenu from 'UI/PageWithMenu'
-import Table from 'modules/Tables/Table'
+import Table from 'modules/tables/Table'
 import FilterPermissionsSelector from 'UI/Home/FilterPermissionsSelector'
 import ClearIcon from '@material-ui/icons/Clear';
 import tableConfiguration from 'modules/Users/tableConfiguration'
-import { ITableData, ITableRecord } from 'modules/Tables/ITableData'
+import { ITableData, ITableRecord } from 'modules/tables/ITableData'
 
 type HomePageProps = {
     classes: any

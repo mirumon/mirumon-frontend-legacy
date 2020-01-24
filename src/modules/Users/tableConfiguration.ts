@@ -1,4 +1,4 @@
-import { ITableConfiguration } from 'modules/Tables/ITableConfiguration'
+import { ITableConfiguration } from 'modules/tables/ITableConfiguration'
 
 const tableConfiguration:ITableConfiguration = {
     rows: {
