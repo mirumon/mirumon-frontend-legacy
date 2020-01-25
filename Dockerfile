@@ -11,6 +11,6 @@ COPY . /var/service
 
 RUN yarn build
 
-EXPOSE 80
+EXPOSE 8000
 
 CMD [ "node", "serve" ]
