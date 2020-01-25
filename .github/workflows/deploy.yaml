@@ -1,0 +1,58 @@
+name: Deploy
+
+on: [push]
+
+jobs:
+  build:
+    name: BuildImage
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build image and publish to registry
+        env:
+          IMAGE_NAME: mirumon/mirumon-frontend
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          TAG=$(echo $GITHUB_REF | sed -e 's,.*/\(.*\),\1,')
+          docker build -t $IMAGE_NAME:$TAG -t $IMAGE_NAME:latest .
+          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USER --password-stdin
+          docker push $IMAGE_NAME:$TAG
+          docker push $IMAGE_NAME:latest
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-18.04
+    needs: build
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy service with traefik over ssh
+        env:
+          MIRUMON_FRONTEND_DOMAIN: ${{ secrets.MIRUMON_FRONTEND_DOMAIN }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          TAG=$(echo $GITHUB_REF | sed -e 's,.*/\(.*\),\1,')
+          which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+          eval $(ssh-agent -s)
+          echo "add ssh key"
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+          ssh -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" $SSH_USER@$SSH_HOST "
+            docker pull mirumon/mirumon-frontend:$TAG && \
+            (docker rm -f mirumon_frontend || true) && \
+            docker run -d \
+              --name mirumon_frontend \
+              --network web \
+              --restart always \
+              --label \"traefik.enable=true\" \
+              --label \"traefik.docker.network=web\" \
+              --label \"traefik.http.routers.mirumon-frontend.rule=Host(\\\`$MIRUMON_FRONTEND_DOMAIN\\\`)\" \
+              --label \"traefik.http.routers.mirumon-frontend.entrypoints=web-secure\" \
+              --label \"traefik.http.routers.mirumon-frontend.tls.certresolver=letsencrypt\" \
+              --label \"traefik.http.routers.mirumon-frontend.middlewares=http-to-https@file\" \
+              --label \"traefik.http.services.mirumon-frontend.loadbalancer.server.port=8000\" \
+              mirumon/mirumon-frontend:$TAG"
