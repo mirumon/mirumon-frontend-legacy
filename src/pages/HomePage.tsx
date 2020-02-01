@@ -9,7 +9,7 @@ import Table from 'modules/tables/Table'
 import FilterPermissionsSelector from 'UI/Home/FilterPermissionsSelector'
 import ClearIcon from '@material-ui/icons/Clear';
 import tableConfiguration from 'modules/Users/tableConfiguration'
-import { ITableData, ITableRecord } from 'modules/tables/ITableData'
+import { ITableData, ITableRecord, TID } from 'modules/tables/ITableData'
 
 type HomePageProps = {
     classes: any
@@ -75,6 +75,12 @@ class HomePage extends Component<HomePageProps, HomePageState> {
         })
     }
 
+    onDeleteHandler = (targetId: TID) => {
+        console.log(targetId)
+        const data: ITableData = this.state.data.filter(v => v.id !== targetId)
+        this.setState({ data })
+    }
+
     render() {
         const { classes } = this.props
         const { data, isCreating, isPermissionsSelectorShowed, permissionFilter } = this.state
@@ -124,7 +130,7 @@ class HomePage extends Component<HomePageProps, HomePageState> {
                             handlers={{
                                 onCreate: this.onCreateHandler,
                                 onUpdate: () => {},
-                                onDelete: () => {},
+                                onDelete: this.onDeleteHandler,
                                 onCreateCancel: this.onCreateCancelHandler
                             }}
                         />

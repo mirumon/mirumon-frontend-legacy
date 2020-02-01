@@ -9,6 +9,7 @@ interface TableRowProps {
     configuration: ITableConfiguration
     data: ITableRecord
     onChange?(value: ITableRecord): void
+    onDelete?(): any
 }
 
 interface TableRowState {
@@ -26,12 +27,6 @@ class TableRow extends Component<TableRowProps, TableRowState> {
         }
     }
 
-    onCancelHandler = () => {
-        this.setState({
-            isEditing: false
-        })
-    }
-
     onApplyHandler = (data: ITableRecord) => {
         this.setState({
             data,
@@ -43,6 +38,17 @@ class TableRow extends Component<TableRowProps, TableRowState> {
         this.setState({
             isEditing: true
         })
+    }
+
+    onCancelHandler = () => {
+        this.setState({
+            isEditing: false
+        })
+    }
+
+    onDeleteHandler = () => {
+        console.log('Something deleted')
+        this.props.onDelete && this.props.onDelete()
     }
 
     render() {
@@ -58,7 +64,6 @@ class TableRow extends Component<TableRowProps, TableRowState> {
                             <>
                                 {
                                     Object.keys(value).map(key => {
-                                        console.log('TableRow: ', `${value.id}:${key}`)
                                         return (
                                         <TableCell
                                             key={`${value.id}:${key}`}
@@ -80,6 +85,7 @@ class TableRow extends Component<TableRowProps, TableRowState> {
                                             onApply={() => this.onApplyHandler(value)}
                                             onEdit={this.onEditHandler}
                                             onCancel={() => {reset(); this.onCancelHandler()}}
+                                            onDelete={this.onDeleteHandler}
                                         />
                                     )
                                 }

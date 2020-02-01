@@ -15,12 +15,13 @@ interface EditingOptions {
 
 interface TableRowActionsProps extends EditingOptions{
     actions: Array<TRowActionTypes>
+    onDelete?(): any
     classes: any
 }
 
 class TableRowActions extends Component<TableRowActionsProps> {
     render() {
-        const { isEditing, actions, classes, onCancel, onApply, onEdit } = this.props
+        const { isEditing, actions, classes, onCancel, onApply, onEdit, onDelete } = this.props
         return (
             <td className={classes.td}>
                 {
@@ -32,7 +33,7 @@ class TableRowActions extends Component<TableRowActionsProps> {
                                 </IconButton>
                             )}
                             { actions.includes('delete') && (
-                                <IconButton>
+                                <IconButton onClick={() => onDelete && onDelete()}>
                                     <DeleteForeverIcon />
                                 </IconButton>
                             )}
