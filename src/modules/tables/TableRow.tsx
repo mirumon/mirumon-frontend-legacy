@@ -57,9 +57,11 @@ class TableRow extends Component<TableRowProps, TableRowState> {
                         (value, setValue, reset) => (
                             <>
                                 {
-                                    Object.keys(value).map(key => (
+                                    Object.keys(value).map(key => {
+                                        console.log('TableRow: ', `${value.id}:${key}`)
+                                        return (
                                         <TableCell
-                                            key={`Row:${key}`}
+                                            key={`${value.id}:${key}`}
                                             configuration={configuration.columns.find(o => o.key === key)}
                                             data={value[key]}
                                             isEditing={isEditing}
@@ -68,7 +70,7 @@ class TableRow extends Component<TableRowProps, TableRowState> {
                                                 [key]: newValue
                                             })}
                                         />
-                                    ))
+                                    )})
                                 }
                                 {
                                     configuration.rows && configuration.rows.actions && (
