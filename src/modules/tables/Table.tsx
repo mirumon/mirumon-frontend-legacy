@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { Theme, withStyles } from '@material-ui/core'
 import { ITableConfiguration } from './ITableConfiguration'
-import { ITableData, ITableRecord } from './ITableData'
+import { ITableData, ITableRecord, TID } from './ITableData'
 import TableRow from './TableRow'
 import CreatingRow from './CreatingRow'
 
 interface ITableHandlers {
     onCreate?(value: Partial<ITableRecord>): any
     onUpdate?(): any
-    onDelete?(): any
+    onDelete?(targetId: TID): any
     onCreateCancel?(): any
 }
 
@@ -55,7 +55,14 @@ class Table extends Component<TableProps> {
                         />
                     }
                     {
-                        data && data.map(record => (<TableRow key={"id" + record.id} configuration={configuration} data={record}/>))
+                        data && data.map(record => (
+                            <TableRow
+                                key={"id" + record.id}
+                                configuration={configuration}
+                                data={record}
+                                onDelete={() => handlers?.onDelete && handlers?.onDelete(record.id)}
+                            />
+                        ))
                     }
                 </tbody>
             </table>
