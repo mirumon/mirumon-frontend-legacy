@@ -58,7 +58,6 @@ class TableRow extends Component<TableRowProps, TableRowState> {
                             <>
                                 {
                                     Object.keys(value).map(key => {
-                                        console.log('TableRow: ', `${value.id}:${key}`)
                                         return (
                                         <TableCell
                                             key={`${value.id}:${key}`}
