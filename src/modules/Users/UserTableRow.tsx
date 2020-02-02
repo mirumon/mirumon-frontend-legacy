@@ -4,6 +4,8 @@ import TableRowActions from 'modules/tables/rows/TableRowActions'
 import { EditContainer } from 'utils/EditContainer'
 import { ITableRecord } from 'modules/tables/ITableData'
 import AbstractTableRow from 'modules/tables/rows/AbstractTableRow'
+import { IconButton } from '@material-ui/core'
+import VpnKeyIcon from '@material-ui/icons/VpnKey'
 
 class UserTableRow extends AbstractTableRow {
     render() {
@@ -31,18 +33,22 @@ class UserTableRow extends AbstractTableRow {
                                         />
                                     ))
                                 }
-                                {/* {
+                                {
                                     configuration.rows && configuration.rows.actions && (
-                                        <TableRowActions 
+                                        <TableRowActions
                                             actions={configuration.rows.actions}
                                             isEditing={isEditing}
                                             onApply={() => this.onApplyHandler(value)}
                                             onEdit={this.onEditHandler}
                                             onCancel={() => {reset(); this.onCancelHandler()}}
                                             onDelete={this.onDeleteHandler}
-                                        />
+                                        >
+                                            <IconButton>
+                                                <VpnKeyIcon />
+                                            </IconButton>
+                                        </TableRowActions>
                                     )
-                                } */}
+                                }
                             </>
                         )
                     }

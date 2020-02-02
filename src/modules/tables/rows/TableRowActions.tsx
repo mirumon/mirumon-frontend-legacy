@@ -17,11 +17,21 @@ interface TableRowActionsProps extends EditingOptions{
     actions: Array<TRowActionTypes>
     onDelete?(): any
     classes: any
+    children?: React.ReactNode
 }
 
 class TableRowActions extends Component<TableRowActionsProps> {
     render() {
-        const { isEditing, actions, classes, onCancel, onApply, onEdit, onDelete } = this.props
+        const {
+            isEditing,
+            actions,
+            classes,
+            onCancel,
+            onApply,
+            onEdit,
+            onDelete,
+            children
+        } = this.props
         return (
             <td className={classes.td}>
                 {
@@ -32,6 +42,7 @@ class TableRowActions extends Component<TableRowActionsProps> {
                                     <EditIcon />
                                 </IconButton>
                             )}
+                            {children}
                             { actions.includes('delete') && (
                                 <IconButton onClick={() => onDelete && onDelete()}>
                                     <DeleteForeverIcon />
