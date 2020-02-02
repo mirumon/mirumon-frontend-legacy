@@ -31,7 +31,7 @@ class UserTableRow extends AbstractTableRow {
                                         />
                                     ))
                                 }
-                                {
+                                {/* {
                                     configuration.rows && configuration.rows.actions && (
                                         <TableRowActions 
                                             actions={configuration.rows.actions}
@@ -42,7 +42,7 @@ class UserTableRow extends AbstractTableRow {
                                             onDelete={this.onDeleteHandler}
                                         />
                                     )
-                                }
+                                } */}
                             </>
                         )
                     }

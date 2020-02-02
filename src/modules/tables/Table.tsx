@@ -29,6 +29,7 @@ class Table extends Component<TableProps> {
             classes,
             handlers
         } = this.props
+        const RowComponent = configuration.rows?.component || TableRow
         return (
             <table className={classes.table}>
                 <thead>
@@ -56,7 +57,7 @@ class Table extends Component<TableProps> {
                     }
                     {
                         data && data.map(record => (
-                            <TableRow
+                            <RowComponent
                                 key={"id" + record.id}
                                 configuration={configuration}
                                 data={record}
