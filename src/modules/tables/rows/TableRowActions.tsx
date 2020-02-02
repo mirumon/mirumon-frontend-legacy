@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Theme, withStyles, IconButton } from '@material-ui/core'
-import { TRowActionTypes } from './ITableConfiguration'
+import { TRowActionTypes } from '../ITableConfiguration'
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever'
 import DoneIcon from '@material-ui/icons/Done'

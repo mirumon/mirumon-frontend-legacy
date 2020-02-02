@@ -1,3 +1,4 @@
+import { TableRowProps, TableRowState } from './rows/AbstractTableRow';
 import { TID, IIdentifiableValue } from './ITableData';
 
 export interface ITableConfiguration {
@@ -7,6 +8,7 @@ export interface ITableConfiguration {
 
 export interface IRowConfiguration {
     actions?: Array<TRowActionTypes>
+    component?: React.ComponentClass<TableRowProps, TableRowState>
 }
 
 export interface IOptions {

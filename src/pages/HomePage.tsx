@@ -76,7 +76,6 @@ class HomePage extends Component<HomePageProps, HomePageState> {
     }
 
     onDeleteHandler = (targetId: TID) => {
-        console.log(targetId)
         const data: ITableData = this.state.data.filter(v => v.id !== targetId)
         this.setState({ data })
     }

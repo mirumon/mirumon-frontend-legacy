@@ -1,8 +1,10 @@
 import { ITableConfiguration } from 'modules/tables/ITableConfiguration'
+import UserTableRow from './UserTableRow'
 
 const tableConfiguration:ITableConfiguration = {
     rows: {
         actions: ['create', 'update', 'delete'],
+        component: UserTableRow
     },
     columns: [
         {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { ITableConfiguration } from './ITableConfiguration'
-import TableCell from './TableCell'
+import { ITableConfiguration } from '../ITableConfiguration'
+import TableCell from '../TableCell'
 import TableRowActions from './TableRowActions'
 import { EditContainer } from 'utils/EditContainer';
-import { ITableRecord } from './ITableData';
+import { ITableRecord } from '../ITableData';
 
 interface CreatingRowProps {
     configuration: ITableConfiguration

@@ -1,56 +1,11 @@
 import React, { Component } from 'react'
-import { ITableConfiguration } from './ITableConfiguration'
-import TableCell from './TableCell'
-import TableRowActions from './TableRowActions'
-import { EditContainer } from 'utils/EditContainer';
-import { ITableRecord } from './ITableData'
+import TableCell from 'modules/tables/TableCell'
+import TableRowActions from 'modules/tables/rows/TableRowActions'
+import { EditContainer } from 'utils/EditContainer'
+import { ITableRecord } from 'modules/tables/ITableData'
+import AbstractTableRow from 'modules/tables/rows/AbstractTableRow'
 
-interface TableRowProps {
-    configuration: ITableConfiguration
-    data: ITableRecord
-    onChange?(value: ITableRecord): void
-    onDelete?(): any
-}
-
-interface TableRowState {
-    data: ITableRecord
-    isEditing: boolean
-}
-
-class TableRow extends Component<TableRowProps, TableRowState> {
-
-    constructor(props: TableRowProps){
-        super(props)
-        this.state = {
-            data: props.data,
-            isEditing: false
-        }
-    }
-
-    onApplyHandler = (data: ITableRecord) => {
-        this.setState({
-            data,
-            isEditing: false
-        })
-    }
-
-    onEditHandler = () => {
-        this.setState({
-            isEditing: true
-        })
-    }
-
-    onCancelHandler = () => {
-        this.setState({
-            isEditing: false
-        })
-    }
-
-    onDeleteHandler = () => {
-        console.log('Something deleted')
-        this.props.onDelete && this.props.onDelete()
-    }
-
+class UserTableRow extends AbstractTableRow {
     render() {
         const { configuration } = this.props
         const { isEditing } = this.state
@@ -63,8 +18,7 @@ class TableRow extends Component<TableRowProps, TableRowState> {
                         (value, setValue, reset) => (
                             <>
                                 {
-                                    Object.keys(value).map(key => {
-                                        return (
+                                    Object.keys(value).filter(key => (key !== 'password' && key !== 'confirm_password') && key).map(key => (
                                         <TableCell
                                             key={`${value.id}:${key}`}
                                             configuration={configuration.columns.find(o => o.key === key)}
@@ -75,7 +29,7 @@ class TableRow extends Component<TableRowProps, TableRowState> {
                                                 [key]: newValue
                                             })}
                                         />
-                                    )})
+                                    ))
                                 }
                                 {
                                     configuration.rows && configuration.rows.actions && (
@@ -98,4 +52,4 @@ class TableRow extends Component<TableRowProps, TableRowState> {
     }
 }
 
-export default TableRow
+export default UserTableRow

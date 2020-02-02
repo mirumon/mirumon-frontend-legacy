@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Theme, withStyles } from '@material-ui/core'
 import { ITableConfiguration } from './ITableConfiguration'
 import { ITableData, ITableRecord, TID } from './ITableData'
-import TableRow from './TableRow'
-import CreatingRow from './CreatingRow'
+import TableRow from './rows/TableRow'
+import CreatingRow from './rows/CreatingRow'
 
 interface ITableHandlers {
     onCreate?(value: Partial<ITableRecord>): any
