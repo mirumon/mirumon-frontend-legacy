@@ -9,7 +9,7 @@ import AbstractTableRow from './AbstractTableRow'
 class TableRow extends AbstractTableRow {
     render() {
         const { data, configuration } = this.props
-        const { isEditing } = this.state
+        const { validatorErrorMessages, isEditing } = this.state
         return (
             <tr>
                 <EditContainer<ITableRecord>
@@ -25,10 +25,14 @@ class TableRow extends AbstractTableRow {
                                             configuration={configuration.columns.find(o => o.key === key)}
                                             data={value[key]}
                                             isEditing={isEditing}
-                                            onChange={(newValue) => setValue({
-                                                ...value,
-                                                [key]: newValue
-                                            })}
+                                            onChange={(newValue) => {
+                                                const record = {
+                                                    ...value,
+                                                    [key]: newValue
+                                                }
+                                                this.onChangeHandler(record)
+                                                setValue(record)
+                                            }}
                                         />
                                     ))
                                 }
@@ -37,6 +41,7 @@ class TableRow extends AbstractTableRow {
                                         <TableRowActions 
                                             actions={configuration.rows.actions}
                                             isEditing={isEditing}
+                                            validatorErrorMessages={validatorErrorMessages}
                                             onApply={() => this.onApplyHandler(value)}
                                             onEdit={() => this.onEditHandler()}
                                             onCancel={() => {reset(); this.onCancelHandler()}}

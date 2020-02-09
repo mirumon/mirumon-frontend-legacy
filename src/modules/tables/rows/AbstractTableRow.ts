@@ -1,3 +1,5 @@
+import { IValidatorResult, ValidatorError } from './../ITableConfiguration';
+import { TableType } from './../ITableData';
 import { Component } from 'react'
 import { ITableConfiguration } from '../ITableConfiguration'
 import { ITableRecord } from '../ITableData'
@@ -10,6 +12,7 @@ export interface TableRowProps {
 }
 
 export interface TableRowState {
+    validatorErrorMessages: ValidatorError,
     isEditing: boolean
 }
 
@@ -17,7 +20,10 @@ abstract class AbstractTableRow<T extends TableRowProps = TableRowProps, S exten
 
     constructor(props: T){
         super(props)
-        this.state = { isEditing: false } as S
+        this.state = {
+            validatorErrorMessages: null,
+            isEditing: false
+        } as S
     }
 
     protected onApplyHandler(data: ITableRecord) {
@@ -42,6 +48,15 @@ abstract class AbstractTableRow<T extends TableRowProps = TableRowProps, S exten
     protected onDeleteHandler() {
         this.props.onDelete && this.props.onDelete()
     }
+
+    protected onChangeHandler(record: Record<string, TableType>) {
+        this.setState({
+            validatorErrorMessages: (this.props.configuration.rows?.validator && this.props.configuration.rows.validator(record)) || null
+        })
+    }
+
+    // TODO: Will avoid code duplication in inherited classes where Table cell instantiating
+    protected makeTableCell() {}
 
 }
 

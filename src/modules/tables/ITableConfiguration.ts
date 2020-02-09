@@ -1,5 +1,5 @@
 import { TableRowProps, TableRowState } from './rows/AbstractTableRow';
-import { TID, IIdentifiableValue } from './ITableData';
+import { TID, IIdentifiableValue, TableType } from './ITableData';
 
 export interface ITableConfiguration {
     rows?: IRowConfiguration
@@ -21,6 +21,24 @@ export interface ITableMetadata {
 export interface IRowConfiguration {
     actions?: Array<TRowActionTypes>
     component?: React.ComponentClass<TableRowProps, TableRowState>
+
+    /**
+     * Will be called for validating result of change
+     * Must return null if result is valid
+     * Must return message with error description or an array of such messages
+     */
+    validator?(result: Record<string, TableType>): ValidatorError
+}
+
+export type ValidatorError = null | Array<IValidatorResult>
+
+export interface IValidatorResult {
+
+    /**
+     * Name of property with wrong content
+     */
+    belongsTo: string,
+    message: string
 }
 
 export interface IOptions {
