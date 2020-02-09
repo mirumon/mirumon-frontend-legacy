@@ -7,7 +7,7 @@ import CreatingRow from './rows/CreatingRow'
 
 interface ITableHandlers {
     onCreate?(value: Partial<ITableRecord>): any
-    onUpdate?(): any
+    onUpdate?(value: ITableRecord): any
     onDelete?(targetId: TID): any
     onCreateCancel?(): any
 }
@@ -67,6 +67,7 @@ class Table extends Component<TableProps> {
                                 key={"id" + record.id}
                                 configuration={configuration}
                                 data={record}
+                                onChange={handlers?.onUpdate}
                                 onDelete={() => handlers?.onDelete && handlers?.onDelete(record.id)}
                             />
                         ))

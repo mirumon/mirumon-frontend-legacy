@@ -8,8 +8,8 @@ import AbstractTableRow from './AbstractTableRow'
 
 class TableRow extends AbstractTableRow {
     render() {
-        const { configuration } = this.props
-        const { data, isEditing } = this.state
+        const { data, configuration } = this.props
+        const { isEditing } = this.state
         return (
             <tr>
                 <EditContainer<ITableRecord>

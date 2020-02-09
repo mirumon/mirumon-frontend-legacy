@@ -43,8 +43,8 @@ class UserTableRow extends AbstractTableRow<TableRowProps, UserTableRowState> {
     }
     
     render() {
-        const { configuration } = this.props
-        const { data, isEditing, editingTarget } = this.state as UserTableRowState
+        const { data, configuration } = this.props
+        const { isEditing, editingTarget } = this.state as UserTableRowState
         return (
             <tr>
                 <EditContainer<ITableRecord>

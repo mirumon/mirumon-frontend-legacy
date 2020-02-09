@@ -10,7 +10,6 @@ export interface TableRowProps {
 }
 
 export interface TableRowState {
-    data: ITableRecord
     isEditing: boolean
 }
 
@@ -18,15 +17,12 @@ abstract class AbstractTableRow<T extends TableRowProps = TableRowProps, S exten
 
     constructor(props: T){
         super(props)
-        this.state = {
-            data: props.data,
-            isEditing: false
-        } as S
+        this.state = { isEditing: false } as S
     }
 
     protected onApplyHandler(data: ITableRecord) {
+        this.props.onChange && this.props.onChange(data)
         this.setState({
-            data,
             isEditing: false
         })
     }
