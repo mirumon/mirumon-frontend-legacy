@@ -1,10 +1,12 @@
 import { ITableConfiguration } from 'modules/tables/ITableConfiguration'
 import UserTableRow from './UserTableRow'
+import userValidator from './userValidator'
 
 const tableConfiguration:ITableConfiguration = {
     rows: {
         actions: ['create', 'update', 'delete'],
-        component: UserTableRow
+        component: UserTableRow,
+        validator: userValidator
     },
     columns: [
         {

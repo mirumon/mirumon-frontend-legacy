@@ -61,10 +61,14 @@ class UserTableRow extends AbstractTableRow<TableRowProps, UserTableRowState> {
                                                 configuration={configuration.columns.find(o => o.key === key)}
                                                 data={value[key]}
                                                 isEditing={isEditing}
-                                                onChange={(newValue) => setValue({
-                                                    ...value,
-                                                    [key]: newValue
-                                                })}
+                                                onChange={(newValue) => {
+                                                    const record = {
+                                                        ...value,
+                                                        [key]: newValue
+                                                    }
+                                                    setValue(record)
+                                                    this.onChangeHandler(record)
+                                                }}
                                             />
                                         ))
                                     )
@@ -85,10 +89,14 @@ class UserTableRow extends AbstractTableRow<TableRowProps, UserTableRowState> {
                                                         configuration={configuration.metadata?.columns.find(o => o.key === key)}
                                                         data={value[key]}
                                                         isEditing={isEditing}
-                                                        onChange={(newValue) => setValue({
-                                                            ...value,
-                                                            [key]: newValue
-                                                        })}
+                                                        onChange={(newValue) => {
+                                                            const record = {
+                                                                ...value,
+                                                                [key]: newValue
+                                                            }
+                                                            setValue(record)
+                                                            this.onChangeHandler(record)
+                                                        }}
                                                     />
                                                 ))
                                             }

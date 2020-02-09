@@ -25,10 +25,14 @@ class TableRow extends AbstractTableRow {
                                             configuration={configuration.columns.find(o => o.key === key)}
                                             data={value[key]}
                                             isEditing={isEditing}
-                                            onChange={(newValue) => setValue({
-                                                ...value,
-                                                [key]: newValue
-                                            })}
+                                            onChange={(newValue) => {
+                                                const record = {
+                                                    ...value,
+                                                    [key]: newValue
+                                                }
+                                                this.onChangeHandler(record)
+                                                setValue(record)
+                                            }}
                                         />
                                     ))
                                 }
