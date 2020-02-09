@@ -14,36 +14,36 @@ export interface TableRowState {
     isEditing: boolean
 }
 
-abstract class AbstractTableRow extends Component<TableRowProps, TableRowState> {
+abstract class AbstractTableRow<T extends TableRowProps = TableRowProps, S extends TableRowState = TableRowState> extends Component<T, S> {
 
-    constructor(props: TableRowProps){
+    constructor(props: T){
         super(props)
         this.state = {
             data: props.data,
             isEditing: false
-        }
+        } as S
     }
 
-    onApplyHandler = (data: ITableRecord) => {
+    protected onApplyHandler(data: ITableRecord) {
         this.setState({
             data,
             isEditing: false
         })
     }
 
-    onEditHandler = () => {
+    protected onEditHandler() {
         this.setState({
             isEditing: true
         })
     }
 
-    onCancelHandler = () => {
+    protected onCancelHandler() {
         this.setState({
             isEditing: false
         })
     }
 
-    onDeleteHandler = () => {
+    protected onDeleteHandler() {
         this.props.onDelete && this.props.onDelete()
     }
 

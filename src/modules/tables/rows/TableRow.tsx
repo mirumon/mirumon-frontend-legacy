@@ -9,11 +9,11 @@ import AbstractTableRow from './AbstractTableRow'
 class TableRow extends AbstractTableRow {
     render() {
         const { configuration } = this.props
-        const { isEditing } = this.state
+        const { data, isEditing } = this.state
         return (
             <tr>
                 <EditContainer<ITableRecord>
-                    value={this.state.data}
+                    value={data}
                     >
                     {
                         (value, setValue, reset) => (
@@ -38,9 +38,9 @@ class TableRow extends AbstractTableRow {
                                             actions={configuration.rows.actions}
                                             isEditing={isEditing}
                                             onApply={() => this.onApplyHandler(value)}
-                                            onEdit={this.onEditHandler}
+                                            onEdit={() => this.onEditHandler()}
                                             onCancel={() => {reset(); this.onCancelHandler()}}
-                                            onDelete={this.onDeleteHandler}
+                                            onDelete={() => this.onDeleteHandler()}
                                         />
                                     )
                                 }

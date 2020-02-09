@@ -20,6 +20,12 @@ interface TableProps {
     classes: any
 }
 
+// TODO 1. Configuration preprocessing and memoization of preprocessing result.
+// TODO 2. Preprocessing should convert arrays of columns into tree
+// TODO 3. Preprocessing should convert keys into sets for faster search
+// TODO 4. Refactor:
+//         4.1. Extract search logic from all components. Components shouldn't know how processed configuration looks. Needed for separation of rendering and configuration preprocessing
+// TODO 5. Configurations inheritance. Single storage of columns configuration in the app as basic pattern should be introduced.
 class Table extends Component<TableProps> {
     render() {
         const { 

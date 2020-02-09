@@ -36,7 +36,9 @@ class HomePage extends Component<HomePageProps, HomePageState> {
                 id: '0',
                 name: 'Alex',
                 right: 'one',
-                groups: ['one', 'two']
+                groups: ['one', 'two'],
+                password: '',
+                confirm_password: ''
             }]
         }
     }

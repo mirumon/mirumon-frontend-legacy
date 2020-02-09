@@ -50,7 +50,29 @@ const tableConfiguration:ITableConfiguration = {
                 ]
             }
         }
-    ]
+    ],
+    metadata: {
+        columns: [
+            {
+                key: 'password',
+                label: 'Password',
+                type: 'password',
+                editable: true,
+                options: {
+                    placeholder: 'enter new password',
+                }
+            },
+            {
+                key: 'confirm_password',
+                label: 'Change password',
+                type: 'password',
+                editable: true,
+                options: {
+                    placeholder: 'confirm pasword',
+                }
+            }
+        ]
+    }
 }
 
 export default tableConfiguration

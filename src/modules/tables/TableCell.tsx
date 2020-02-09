@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import { IColumnConfiguration } from './ITableConfiguration'
 import TextCell from './CellTypes/TextCell'
 import SelectCell from './CellTypes/SelectCell'
-import { IEditable } from './CellTypes/IEditable'
 import CheckListCell from './CellTypes/CheckListCell'
+import PasswordCell from './CellTypes/PasswordCell'
+import { IEditable } from './CellTypes/IEditable'
 import { TableType, TID } from './ITableData'
 
 interface TableCellProps extends IEditable<TableType>{
@@ -15,7 +16,6 @@ interface TableCellProps extends IEditable<TableType>{
 class TableCell extends Component<TableCellProps> {
 
     render() {
-        
         const { configuration, isEditing } = this.props
         switch(configuration && configuration.type) {
             case 'text':
@@ -42,6 +42,14 @@ class TableCell extends Component<TableCellProps> {
                     <CheckListCell
                         value={(this.props.data as Array<TID>)}
                         variants={this.props.configuration?.options?.variants}
+                        onChange={this.props.onChange}
+                        isEditing={isEditing}
+                    />
+                )
+            case 'password':
+                return (
+                    <PasswordCell
+                        value={this.props.data as string}
                         onChange={this.props.onChange}
                         isEditing={isEditing}
                     />
