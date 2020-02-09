@@ -30,9 +30,14 @@ export interface IRowConfiguration {
     validator?(result: Record<string, TableType>): ValidatorError
 }
 
-export type ValidatorError = null | IValidatorResult | Array<IValidatorResult>
+export type ValidatorError = null | Array<IValidatorResult>
 
 export interface IValidatorResult {
+
+    /**
+     * Name of property with wrong content
+     */
+    belongsTo: string,
     message: string
 }
 

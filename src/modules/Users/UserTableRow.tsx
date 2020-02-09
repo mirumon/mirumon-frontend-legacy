@@ -44,7 +44,7 @@ class UserTableRow extends AbstractTableRow<TableRowProps, UserTableRowState> {
     
     render() {
         const { data, configuration } = this.props
-        const { isEditing, editingTarget } = this.state as UserTableRowState
+        const { validatorErrorMessages, isEditing, editingTarget } = this.state as UserTableRowState
         return (
             <tr>
                 <EditContainer<ITableRecord>
@@ -108,6 +108,9 @@ class UserTableRow extends AbstractTableRow<TableRowProps, UserTableRowState> {
                                         <TableRowActions
                                             actions={configuration.rows.actions}
                                             isEditing={isEditing}
+                                            validatorErrorMessages={
+                                                (validatorErrorMessages && editingTarget === 'PASSWORD') ? validatorErrorMessages.filter(r => r.belongsTo === 'password') : null
+                                            }
                                             onApply={() => this.onApplyHandler(value)}
                                             onEdit={() => this.onEditHandler()}
                                             onCancel={() => {reset(); this.onCancelHandler()}}

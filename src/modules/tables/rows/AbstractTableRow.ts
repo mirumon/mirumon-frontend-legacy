@@ -20,7 +20,10 @@ abstract class AbstractTableRow<T extends TableRowProps = TableRowProps, S exten
 
     constructor(props: T){
         super(props)
-        this.state = { isEditing: false } as S
+        this.state = {
+            validatorErrorMessages: null,
+            isEditing: false
+        } as S
     }
 
     protected onApplyHandler(data: ITableRecord) {
@@ -47,7 +50,9 @@ abstract class AbstractTableRow<T extends TableRowProps = TableRowProps, S exten
     }
 
     protected onChangeHandler(record: Record<string, TableType>) {
-        console.log(this.props.configuration.rows?.validator && this.props.configuration.rows.validator(record))
+        this.setState({
+            validatorErrorMessages: (this.props.configuration.rows?.validator && this.props.configuration.rows.validator(record)) || null
+        })
     }
 
     // TODO: Will avoid code duplication in inherited classes where Table cell instantiating

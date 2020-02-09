@@ -9,7 +9,7 @@ import AbstractTableRow from './AbstractTableRow'
 class TableRow extends AbstractTableRow {
     render() {
         const { data, configuration } = this.props
-        const { isEditing } = this.state
+        const { validatorErrorMessages, isEditing } = this.state
         return (
             <tr>
                 <EditContainer<ITableRecord>
@@ -41,6 +41,7 @@ class TableRow extends AbstractTableRow {
                                         <TableRowActions 
                                             actions={configuration.rows.actions}
                                             isEditing={isEditing}
+                                            validatorErrorMessages={validatorErrorMessages}
                                             onApply={() => this.onApplyHandler(value)}
                                             onEdit={() => this.onEditHandler()}
                                             onCancel={() => {reset(); this.onCancelHandler()}}
