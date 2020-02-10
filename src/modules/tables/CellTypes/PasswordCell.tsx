@@ -7,7 +7,8 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff'
 
 interface PasswordCellProps extends IEditable<string> {
     value?: string
-    classes: any
+    classes: any,
+    placeholder?: string
 }
 
 interface PasswordCellState {
@@ -34,7 +35,7 @@ class PasswordCell extends Component<PasswordCellProps, PasswordCellState> {
     }
 
     render() {
-        const { value, isEditing, classes } = this.props
+        const { value, isEditing, classes, placeholder } = this.props
         const { visibility } = this.state
         return (
             <td className={classes.td}>
@@ -47,6 +48,7 @@ class PasswordCell extends Component<PasswordCellProps, PasswordCellState> {
                         type={visibility ? 'text' : 'password'}
                         value={value || ''}
                         onChange={this.onChangeHandler}
+                        placeholder={placeholder}
                         endAdornment={
                             <InputAdornment position="end">
                               <IconButton
