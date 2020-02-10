@@ -52,6 +52,7 @@ class TableCell extends Component<TableCellProps> {
                         value={this.props.data as string}
                         onChange={this.props.onChange}
                         isEditing={isEditing}
+                        placeholder={configuration?.options?.placeholder}
                     />
                 )
             default:
