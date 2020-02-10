@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { Theme, withStyles } from '@material-ui/core'
 import { ITableConfiguration } from './ITableConfiguration'
 import { ITableData, ITableRecord, TID } from './ITableData'
-import TableRow from './TableRow'
-import CreatingRow from './CreatingRow'
+import TableRow from './rows/TableRow'
+import CreatingRow from './rows/CreatingRow'
 
 interface ITableHandlers {
     onCreate?(value: Partial<ITableRecord>): any
-    onUpdate?(): any
+    onUpdate?(value: ITableRecord): any
     onDelete?(targetId: TID): any
     onCreateCancel?(): any
 }
@@ -20,6 +20,12 @@ interface TableProps {
     classes: any
 }
 
+// TODO 1. Configuration preprocessing and memoization of preprocessing result.
+// TODO 2. Preprocessing should convert arrays of columns into tree
+// TODO 3. Preprocessing should convert keys into sets for faster search
+// TODO 4. Refactor:
+//         4.1. Extract search logic from all components. Components shouldn't know how processed configuration looks. Needed for separation of rendering and configuration preprocessing
+// TODO 5. Configurations inheritance. Single storage of columns configuration in the app as basic pattern should be introduced.
 class Table extends Component<TableProps> {
     render() {
         const { 
@@ -29,6 +35,7 @@ class Table extends Component<TableProps> {
             classes,
             handlers
         } = this.props
+        const RowComponent = configuration.rows?.component || TableRow
         return (
             <table className={classes.table}>
                 <thead>
@@ -56,10 +63,11 @@ class Table extends Component<TableProps> {
                     }
                     {
                         data && data.map(record => (
-                            <TableRow
+                            <RowComponent
                                 key={"id" + record.id}
                                 configuration={configuration}
                                 data={record}
+                                onChange={handlers?.onUpdate}
                                 onDelete={() => handlers?.onDelete && handlers?.onDelete(record.id)}
                             />
                         ))

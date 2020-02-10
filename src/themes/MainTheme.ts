@@ -13,10 +13,14 @@ const MainTheme: Theme = createMuiTheme({
             light: 'rgba(255, 255, 255, 0.25)',
         },
         error: {
-            main: '#BB6B75'
+            main: '#BB6B75',
         },
         success: {
             main: '#3FB2AA'
+        },
+        warning: {
+            main: '#d4d433',
+            dark: '#9c9c25'
         },
         text: {
             primary: '#fff',

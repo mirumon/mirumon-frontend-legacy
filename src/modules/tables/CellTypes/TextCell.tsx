@@ -8,16 +8,9 @@ interface TextCellProps extends IEditable<string> {
     classes: any
 }
 
-interface TextCellState {
-    value: string
-}
-
 class TextCell extends Component<TextCellProps> {
 
     onChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        this.setState({
-            value: e.currentTarget.value
-        })
         this.props.onChange && this.props.onChange(e.currentTarget.value)
     }
 

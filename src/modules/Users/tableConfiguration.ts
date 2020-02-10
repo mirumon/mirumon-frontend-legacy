@@ -1,8 +1,12 @@
 import { ITableConfiguration } from 'modules/tables/ITableConfiguration'
+import UserTableRow from './UserTableRow'
+import userValidator from './userValidator'
 
 const tableConfiguration:ITableConfiguration = {
     rows: {
         actions: ['create', 'update', 'delete'],
+        component: UserTableRow,
+        validator: userValidator
     },
     columns: [
         {
@@ -48,7 +52,29 @@ const tableConfiguration:ITableConfiguration = {
                 ]
             }
         }
-    ]
+    ],
+    metadata: {
+        columns: [
+            {
+                key: 'password',
+                label: 'Password',
+                type: 'password',
+                editable: true,
+                options: {
+                    placeholder: 'enter new password',
+                }
+            },
+            {
+                key: 'confirm_password',
+                label: 'Change password',
+                type: 'password',
+                editable: true,
+                options: {
+                    placeholder: 'confirm pasword',
+                }
+            }
+        ]
+    }
 }
 
 export default tableConfiguration
